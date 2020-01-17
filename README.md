@@ -19,7 +19,7 @@ After selecting the commits continue with the Enter key, type the message relate
 At any time you can exit the program with Ctrl-C
 
 
-![alt]("example.png")
+![alt](example.png)
 
 
 
