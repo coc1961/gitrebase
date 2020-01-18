@@ -47,11 +47,24 @@ func (g *Git) Log() ([]string, []*object.Commit, error) {
 	noRL := func(s string) string {
 		return strings.ReplaceAll(s, "\n", " ")
 	}
+	hash := func(s string) string {
+		if len(s) < 8 {
+			return s
+		}
+		return string([]byte(s)[0:7])
+	}
 
 	ret = make([]string, 0)
 	comm = make([]*object.Commit, 0)
 	err = cIter.ForEach(func(c *object.Commit) error {
-		ret = append(ret, fmt.Sprintf("%v", noRL(c.String())))
+		format := "commit %s Author: %s  Date: %s Message: %s"
+		txt := fmt.Sprintf(format,
+			hash(c.Hash.String()),
+			c.Author.Name,
+			c.Author.When.Format(object.DateFormat),
+			noRL(c.Message),
+		)
+		ret = append(ret, txt)
 		comm = append(comm, c)
 		return nil
 	})

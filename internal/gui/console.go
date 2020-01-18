@@ -74,7 +74,7 @@ func (c *Console) layout(g *gocui.Gui) error {
 		normal := "\033[0m"
 		color := fmt.Sprintf("\033[3%d;%dm", 2, 2)
 		color1 := fmt.Sprintf("\033[3%d;%dm", 2, 7)
-		fmt.Fprintf(v, "%sgit rebase%s - %s[Ctrl-C]%s Salir sin Procesar,  %s[Ctrl-Space]%s Marca los Commits a Unificar,  %sEnter%s Procesa el Rebase \n", color1, normal, color, normal, color, normal, color, normal)
+		fmt.Fprintf(v, "%s git rebase%s - %s[Ctrl-C]%s Salir sin Procesar,  %s[Ctrl-Space]%s Marca los Commits a Unificar,  %sEnter%s Procesa el Rebase \n", color1, normal, color, normal, color, normal, color, normal)
 	}
 
 	if v, err := g.SetView("git", 0, 3, maxX-1, maxY-1); err != nil {
@@ -96,12 +96,12 @@ func (c *Console) print() {
 	n := 0
 	for _, s := range c.Data {
 		if n == c.actual {
-			fmt.Fprintln(c.v, "\033[1;7m "+s+"\033[0m")
+			fmt.Fprintln(c.v, "\033[0m\033[1;7m "+s+"\033[0m")
 		} else {
 			if n <= c.mark && c.mark > 0 {
-				fmt.Fprintln(c.v, "\033[33m "+s+"\033[0m")
+				fmt.Fprintln(c.v, "\033[0m\033[33m "+s+"\033[0m")
 			} else {
-				fmt.Fprintln(c.v, "\033[96m "+s+"\033[0m")
+				fmt.Fprintln(c.v, "\033[0m\033[96m "+s+"\033[0m")
 			}
 		}
 		n++

@@ -32,7 +32,7 @@ func main() {
 	c.Run()
 
 	i, m := c.Result()
-	if i > 0 {
+	if i > 0 && m != "" {
 		err := g.Rebase(commits[i], m)
 		if err != nil {
 			fmt.Println(err)
@@ -40,6 +40,6 @@ func main() {
 			fmt.Println("Rebase Ok!")
 		}
 	} else {
-		fmt.Println("Exitwithout processing")
+		fmt.Println("Exit without processing")
 	}
 }
