@@ -33,6 +33,7 @@ func main() {
 
 	i, m := c.Result()
 	if i > 0 && m != "" {
+		fmt.Println("Processing, one moment please!...")
 		err := g.Rebase(commits[i], m)
 		if err != nil {
 			fmt.Println(err)

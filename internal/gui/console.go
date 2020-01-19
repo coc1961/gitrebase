@@ -3,6 +3,7 @@ package gui
 import (
 	"fmt"
 	"log"
+	"strings"
 
 	gocui "github.com/jroimartin/gocui"
 )
@@ -93,6 +94,13 @@ func (c *Console) layout(g *gocui.Gui) error {
 
 func (c *Console) print() {
 	c.v.Clear()
+
+	color := func(s string) string {
+		c := "\033[33m"
+		s = strings.ReplaceAll(s, "[", "["+c)
+		s = strings.ReplaceAll(s, "]", "]\033[0m")
+		return s
+	}
 	n := 0
 	for _, s := range c.Data {
 		if n == c.actual {
@@ -101,7 +109,7 @@ func (c *Console) print() {
 			if n <= c.mark && c.mark > 0 {
 				fmt.Fprintln(c.v, "\033[0m\033[33m "+s+"\033[0m")
 			} else {
-				fmt.Fprintln(c.v, "\033[0m\033[96m "+s+"\033[0m")
+				fmt.Fprintln(c.v, " "+color(s)+"\033[0m")
 			}
 		}
 		n++

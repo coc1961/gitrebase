@@ -45,7 +45,7 @@ func (g *Git) Log() ([]string, []*object.Commit, error) {
 	}
 
 	noRL := func(s string) string {
-		return strings.ReplaceAll(s, "\n", " ")
+		return strings.TrimSpace(strings.ReplaceAll(s, "\n", " "))
 	}
 	hash := func(s string) string {
 		if len(s) < 8 {
@@ -57,8 +57,10 @@ func (g *Git) Log() ([]string, []*object.Commit, error) {
 	ret = make([]string, 0)
 	comm = make([]*object.Commit, 0)
 	err = cIter.ForEach(func(c *object.Commit) error {
-		format := "commit %s Author: %s  Date: %s Message: %s"
+
+		format := "%v commit [%s] Author: [%s]  Date: [%s] Message: [%s]"
 		txt := fmt.Sprintf(format,
+			c.Type(),
 			hash(c.Hash.String()),
 			c.Author.Name,
 			c.Author.When.Format(object.DateFormat),
@@ -76,9 +78,16 @@ func (g *Git) Log() ([]string, []*object.Commit, error) {
 }
 
 func (g *Git) Rebase(commit *object.Commit, message string) error {
+
 	r, err := git.PlainOpen(g.Path)
 	if err != nil {
 		return err
+	}
+
+	var prev *object.Commit
+	prev, err = commit.Parent(0)
+	if err != nil {
+		prev = commit
 	}
 
 	var w *git.Worktree
@@ -100,8 +109,8 @@ func (g *Git) Rebase(commit *object.Commit, message string) error {
 
 	_, err = w.Commit(message, &git.CommitOptions{
 		Author: &object.Signature{
-			Name:  "user",
-			Email: "mail@org.org",
+			Name:  prev.Author.Name,
+			Email: prev.Author.Email,
 			When:  time.Now(),
 		},
 	})
