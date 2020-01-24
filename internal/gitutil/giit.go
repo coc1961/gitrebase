@@ -5,6 +5,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/tcnksm/go-gitconfig"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
 )
@@ -90,6 +91,19 @@ func (g *Git) Rebase(commit *object.Commit, message string) error {
 		prev = commit
 	}
 
+	var user string
+	var email string
+
+	user = prev.Committer.Name
+	email = prev.Committer.Email
+
+	if s, err := gitconfig.Global("user.name"); err == nil {
+		user = s
+	}
+	if s, err := gitconfig.Global("user.email"); err == nil {
+		email = s
+	}
+
 	var w *git.Worktree
 	w, err = r.Worktree()
 
@@ -109,8 +123,8 @@ func (g *Git) Rebase(commit *object.Commit, message string) error {
 
 	_, err = w.Commit(message, &git.CommitOptions{
 		Author: &object.Signature{
-			Name:  prev.Author.Name,
-			Email: prev.Author.Email,
+			Name:  user,
+			Email: email,
 			When:  time.Now(),
 		},
 	})
