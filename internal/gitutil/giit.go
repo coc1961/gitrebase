@@ -102,10 +102,10 @@ func (g *Git) Rebase(commit *object.Commit, message string) error {
 		return err
 	}
 
-	_, err = w.Add(".")
-	if err != nil {
-		return err
-	}
+	// _, err = w.Add(".")
+	// if err != nil {
+	// 	return err
+	// }
 
 	_, err = w.Commit(message, &git.CommitOptions{
 		Author: &object.Signature{
