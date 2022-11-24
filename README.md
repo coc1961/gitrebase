@@ -4,7 +4,7 @@ Simple program to run git rebase.
 
 ## Install
 
-go get -u github.com/coc1961/gitrebase/...
+go install github.com/coc1961/gitrebase/cmd/gitrebase@latest
 
 ## Run
 
