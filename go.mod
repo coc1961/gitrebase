@@ -1,10 +1,32 @@
 module github.com/coc1961/gitrebase
 
-go 1.15
+go 1.23.0
+
+toolchain go1.24.2
 
 require (
 	github.com/jroimartin/gocui v0.5.0
-	github.com/onsi/gomega v1.20.2 // indirect
 	github.com/tcnksm/go-gitconfig v0.1.2
 	gopkg.in/src-d/go-git.v4 v4.13.1
+)
+
+require (
+	github.com/Microsoft/go-winio v0.6.2 // indirect
+	github.com/emirpasic/gods v1.18.1 // indirect
+	github.com/google/go-cmp v0.6.0 // indirect
+	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
+	github.com/kevinburke/ssh_config v1.2.0 // indirect
+	github.com/mattn/go-runewidth v0.0.9 // indirect
+	github.com/mitchellh/go-homedir v1.1.0 // indirect
+	github.com/nsf/termbox-go v1.1.1 // indirect
+	github.com/onsi/gomega v1.20.2 // indirect
+	github.com/sergi/go-diff v1.3.1 // indirect
+	github.com/src-d/gcfg v1.4.0 // indirect
+	github.com/stretchr/testify v1.5.1 // indirect
+	github.com/xanzy/ssh-agent v0.3.3 // indirect
+	golang.org/x/crypto v0.37.0 // indirect
+	golang.org/x/net v0.39.0 // indirect
+	golang.org/x/sys v0.32.0 // indirect
+	gopkg.in/src-d/go-billy.v4 v4.3.2 // indirect
+	gopkg.in/warnings.v0 v0.1.2 // indirect
 )

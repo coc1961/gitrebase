@@ -171,11 +171,6 @@ func (g *Git) Rebase(commit *object.Commit, message string) error {
 		return err
 	}
 
-	//   _, err = w.Add(".")
-	//   if err != nil {
-	//   	return err
-	//   }
-
 	_, err = w.Commit(message, &git.CommitOptions{
 		Author: &object.Signature{
 			Name:  user,
@@ -234,7 +229,7 @@ func (g *Git) Squash(pcommit, msg string) error {
 	}
 
 	if comm == nil {
-		return fmt.Errorf("invalid commit " + pcommit)
+		return fmt.Errorf("invalid commit %s", pcommit)
 	}
 
 	return g.Rebase(comm, msg)

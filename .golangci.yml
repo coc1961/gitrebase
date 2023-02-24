@@ -32,7 +32,6 @@ run:
 linters:
   enable:
     - bodyclose
-    - deadcode
     - depguard
     #- dogsled
     - dupl
@@ -44,7 +43,6 @@ linters:
     - gocyclo
     - gofmt
     - goimports
-    - golint
     - gosec
     - gosimple
     - govet
@@ -53,15 +51,12 @@ linters:
     - lll
     - misspell
     - nakedret
-    - scopelint
     - staticcheck
-    - structcheck
     - stylecheck
     - typecheck
     - unconvert
     - unparam
     - unused
-    - varcheck
     #- whitespace
 service:
   golangci-lint-version: 1.18.x

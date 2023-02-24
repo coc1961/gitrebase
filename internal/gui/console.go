@@ -22,7 +22,7 @@ type Console struct {
 	v       *gocui.View
 }
 
-func (c *Console) Result() (int, string) {
+func (c *Console) Result() (a int, b string) {
 	if c.mark > 0 {
 		if c.mark+1 < len(c.Data) {
 			return c.mark + 1, c.message
@@ -68,15 +68,15 @@ func (c *Console) Run() {
 func (c *Console) layout(g *gocui.Gui) error {
 	maxX, maxY := g.Size()
 
-	if v, err := g.SetView("tit", 0, 0, maxX, 2); err != nil && err != gocui.ErrUnknownView {
+	v, err := g.SetView("tit", 0, 0, maxX, 2)
+	if err != nil && err != gocui.ErrUnknownView {
 		return err
-	} else {
-		v.Frame = false
-		normal := "\033[0m"
-		color := fmt.Sprintf("\033[3%d;%dm", 2, 2)
-		color1 := fmt.Sprintf("\033[3%d;%dm", 2, 7)
-		fmt.Fprintf(v, "%s git rebase%s - %s[Ctrl-C]%s Salir sin Procesar,  %s[Ctrl-Space]%s Marca los Commits a Unificar,  %sEnter%s Procesa el Rebase \n", color1, normal, color, normal, color, normal, color, normal)
 	}
+	v.Frame = false
+	normal := "\033[0m"
+	color := fmt.Sprintf("\033[3%d;%dm", 2, 2)
+	color1 := fmt.Sprintf("\033[3%d;%dm", 2, 7)
+	fmt.Fprintf(v, "%s git rebase%s - %s[Ctrl-C]%s Salir sin Procesar,  %s[Ctrl-Space]%s Marca los Commits a Unificar,  %sEnter%s Procesa el Rebase \n", color1, normal, color, normal, color, normal, color, normal)
 
 	if v, err := g.SetView("git", 0, 3, maxX-1, maxY-1); err != nil {
 		v.Frame = true
